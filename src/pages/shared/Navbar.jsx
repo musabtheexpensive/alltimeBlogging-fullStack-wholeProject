@@ -30,9 +30,16 @@ const Navbar = () => {
           </ul>
         </details>
       </li>
-      <li>
-        <Link to="/wishlist">Wishlist</Link>
+     {
+      user?.email? <>
+       <li>
+        <Link to="/allWishlist">Wishlist</Link>
       </li>
+      </>:
+       <li>
+       <Link to="/login">Wishlist</Link>
+     </li>
+     }
     </>
   );
   return (
