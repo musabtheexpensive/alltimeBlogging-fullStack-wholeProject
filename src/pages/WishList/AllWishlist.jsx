@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import AllWishListRow from "./AllWishListRow";
 
 const AllWishlist = () => {
   const { user } = useContext(AuthContext);
@@ -12,8 +13,29 @@ const AllWishlist = () => {
       .then((data) => setAllWishList(data));
   });
   return (
-    <div>
-      <h2>all wishlist: {allWishlist.length}</h2>
+    <div className="pt-24">
+      <h2>All wishlist: {allWishlist.length}</h2>
+      <div className="overflow-x-auto">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        <th>Blog Photo</th>
+        {/* <th>Category</th>
+        <th>Description</th>
+        <th>Remove</th> */}
+      </tr>
+    </thead>
+    <tbody>
+     {
+      allWishlist.map(SingleList=> <AllWishListRow key={SingleList._id} SingleList={SingleList} ></AllWishListRow>  )
+     }
+     
+    </tbody>
+   
+    
+  </table>
+</div>
     </div>
   );
 };
