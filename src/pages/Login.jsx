@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./shared/Navbar";
 
 import { FcGoogle } from "react-icons/fc";
@@ -13,8 +13,9 @@ const Login = () => {
   const [success, setSuccess] = useState("");
   const emailRef = useRef(null);
   const auth = getAuth(app);
-
   const { googleSign, signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(e.currentTarget);
@@ -45,9 +46,9 @@ const Login = () => {
         } else {
           alert("Please Verify Your Email Address");
         }
-e.target.reset();
+        e.target.reset();
         // navigate after login
-        // navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         console.error(error);
