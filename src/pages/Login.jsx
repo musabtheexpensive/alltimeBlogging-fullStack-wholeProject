@@ -7,6 +7,7 @@ import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import axios from "axios";
 
 const Login = () => {
   const [registerError, setRegisterError] = useState("");
@@ -16,13 +17,13 @@ const Login = () => {
   const { googleSign, signIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(e.currentTarget);
     const form = new FormData(e.currentTarget);
     const email = form.get("email");
     const password = form.get("password");
-    console.log(email, password);
 
     // reset error
     setRegisterError("");
@@ -41,6 +42,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         console.log(result.user);
+        const user = { email };
         if (result.user.emailVerified) {
           setSuccess("Logged in SuccessFully");
         } else {
@@ -48,7 +50,16 @@ const Login = () => {
         }
         e.target.reset();
         // navigate after login
-        navigate(location?.state ? location.state : "/");
+        // navigate(location?.state ? location.state : "/");
+
+        // get access token
+        axios.post("http://localhost:5000/jwt", user,{withCredentials:true})
+        .then((res) => {
+          console.log(res.data);
+          if(res.data.success){
+            navigate(location?.state ? location.state : "/");
+          }
+        });
       })
       .catch((error) => {
         console.error(error);
