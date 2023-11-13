@@ -1,17 +1,18 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./shared/Navbar";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookSquare } from "react-icons/fa";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import app from "../firebase/firebase.config";
-import axios from "axios";
+// import axios from "axios";
 
 const Login = () => {
   const [registerError, setRegisterError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef(null);
   const auth = getAuth(app);
   const { googleSign, signIn } = useContext(AuthContext);
@@ -42,7 +43,7 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         console.log(result.user);
-        const user = { email };
+        // const user = { email };
         if (result.user.emailVerified) {
           setSuccess("Logged in SuccessFully");
         } else {
@@ -50,16 +51,16 @@ const Login = () => {
         }
         e.target.reset();
         // navigate after login
-        // navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/");
 
         // get access token
-        axios.post("http://localhost:5000/jwt", user,{withCredentials:true})
-        .then((res) => {
-          console.log(res.data);
-          if(res.data.success){
-            navigate(location?.state ? location.state : "/");
-          }
-        });
+        // axios.post("https://assignment11-serverside-categorynumber6.vercel.app/jwt", user,{withCredentials:true})
+        // .then((res) => {
+        //   console.log(res.data);
+        //   if(res.data.success){
+        //     navigate(location?.state ? location.state : "/");
+        //   }
+        // });
       })
       .catch((error) => {
         console.error(error);
@@ -109,17 +110,23 @@ const Login = () => {
               required
             />
           </div>
-          <div className="form-control">
+          <div className="form-control relative">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
-              type="password"
+               type={showPassword ? "text" : "password"}
               placeholder="password"
               name="password"
               className="input input-bordered"
               required
             />
+                <span
+              className="absolute top-14 right-2"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </span>
             <label className="label">
               <a
                 onClick={handleForgetPass}

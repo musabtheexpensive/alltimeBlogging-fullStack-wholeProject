@@ -19,7 +19,7 @@ const WishList = () => {
     };
     console.log(addWishlist);
 
-    fetch("http://localhost:5000/wishlist", {
+    fetch("https://assignment11-serverside-categorynumber6.vercel.app/wishlist", {
       method: "POST",
       headers: {
         "content-type": "application/json",

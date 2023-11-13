@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import AllWishListRow from "./AllWishListRow";
 import axios from "axios";
@@ -7,8 +7,8 @@ const AllWishlist = () => {
   const { user } = useContext(AuthContext);
   const [allWishlist, setAllWishList] = useState([]);
 
-  const url = `http://localhost:5000/wishlist?email=${user?.email}`;
-  useEffect(() => {
+  const url = `https://assignment11-serverside-categorynumber6.vercel.app/wishlist?email=${user?.email}`;
+  // useEffect(() => {
     axios.get(url, { withCredentials: true })
     .then((res) => {
       setAllWishList(res.data);
@@ -16,7 +16,7 @@ const AllWishlist = () => {
     // fetch(url)
     //   .then((res) => res.json())
     //   .then((data) => setAllWishList(data));
-  });
+  // });
   return (
     <div className="pt-24">
       <h2>All wishlist: {allWishlist.length}</h2>

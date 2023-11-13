@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:5000/blogByUser"),
+        loader: () => fetch("https://assignment11-serverside-categorynumber6.vercel.app/blogByUser"),
       },
       {
         path: "/login",
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         path: "wishlist/:id",
         element: <WishList></WishList>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/blogByUser/${params.id}`),
+          fetch(`https://assignment11-serverside-categorynumber6.vercel.app/blogByUser/${params.id}`),
       },
       {
         path: "/allWishlist",
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         path: "/details/:id",
         element: <Details></Details>,
         loader: ({ params }) =>
-        fetch(`http://localhost:5000/blogByUser/${params.id}`),
+        fetch(`https://assignment11-serverside-categorynumber6.vercel.app/blogByUser/${params.id}`),
       },
     ],
   },

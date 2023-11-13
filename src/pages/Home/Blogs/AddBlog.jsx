@@ -21,7 +21,7 @@ const AddBlog = () => {
     console.log(newBlog);
 
     // send data to the server
-    fetch("http://localhost:5000/blogByUser", {
+    fetch("https://assignment11-serverside-categorynumber6.vercel.app/blogByUser", {
       method: "POST",
       headers: {
         "content-type": "application/json",

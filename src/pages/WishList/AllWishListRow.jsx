@@ -4,7 +4,7 @@ const AllWishListRow = ({ SingleList }) => {
   const handleDelete = (id) => {
     const proceed = confirm("Are You Sure You Want To Remove?");
     if (proceed) {
-      fetch(`http://localhost:5000/wishlist/${id}`, {
+      fetch(`https://assignment11-serverside-categorynumber6.vercel.app/wishlist/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
